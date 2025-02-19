@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --red: #d01c28;
+  --gray: #2e2e2e;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  all: unset;
+  padding: 6px 16px;
+  background: var(--red);
+  height: 32px;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 1280px;
+  width: 100%;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  height: 72px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 24px;
+  cursor: pointer;
+  flex-wrap: wrap;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 72px);
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  align-items: center;
+}
+.hero h1 {
+  font-weight: 600;
+  line-height: 1.1;
+  font-size: 10vw;
+}
+.hero p {
+  font-weight: 400;
+  color: var(--gray);
+  max-width: 400px;
+}
+
+.hero-btn {
+  display: flex;
+  gap: 24px;
+  flex-direction: column;
+}
+.hero-btn button {
+  cursor: pointer;
+  font-size: 12px;
+  width: 100%;
+}
+.secondary-btn {
+  cursor: pointer;
+  background: transparent;
+  color: var(--gray);
+  border: 1px solid gray;
+}
+
+.shopping p {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.brand-icons {
+  display: flex;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .hero-btn {
+    flex-direction: row;
+  }
+  .hero h1 {
+    font-size: 90px;
+  }
+  .hero-content {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .hero {
+    flex-direction: row;
+    text-align: left;
+  }
+  .hero-btn button {
+    width: auto;
+  }
+  nav ul {
+    flex-direction: row;
+  }
+}
