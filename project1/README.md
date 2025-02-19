@@ -1,8 +1,15 @@
-# React + Vite
+#Simple React Home Page
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple home page built using React. The project is designed to help understand the basics of React, component structure, and styling with CSS.
 
-Currently, two official plugins are available:
+Project Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project features a simple homepage layout with a navigation bar, hero section, and responsive design using React and CSS.
+
+Reference
+
+The development of this project was guided by the following YouTube video tutorial:
+React Responsive Website Tutorial | Build and Deploy
+
+Youtube Link:
+https://www.youtube.com/watch?v=W7up-w1QYpw&list=PLPppPPmk0i3j_DW1T-UbryDVhBDgaAfEp&index=2
