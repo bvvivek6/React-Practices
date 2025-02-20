@@ -2,6 +2,17 @@ import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+const skillsData = [
+  { skill: "HTML", level: "Advanced", color: "#E34F26" },
+  { skill: "CSS", level: "Advanced", color: "#1572B6" },
+  { skill: "JavaScript", level: "Intermediate", color: "#F7DF1E" },
+  { skill: "React", level: "Intermediate", color: "#61DAFB" },
+  { skill: "Node.js", level: "Beginner", color: "#339933" },
+  { skill: "MongoDB", level: "Beginner", color: "#47A248" },
+  { skill: "Git", level: "Intermediate", color: "#F05032" },
+  { skill: "Figma", level: "Advanced", color: "#F24E1E" },
+];
+
 function App() {
   return (
     <div
@@ -15,20 +26,23 @@ function App() {
 
 function Card() {
   return (
-    <div className="card">
-      <div>
-        <Avatar />
-        <h3 style={{ margin: "1rem", fontSize: "1rem", fontWeight: "500" }}>
-          Hi, I’m Vivek, a UI/UX Designer and Frontend Developer with a passion
-          for crafting intuitive digital experiences and building functional,
-          user-centered web applications. I’m constantly honing my skills in
-          React, MERN stack, and modern design principles.
-        </h3>
-        <Skilllist />
+    <div className="shine">
+      <div className="card">
+        <div>
+          <Avatar />
+          <h3 style={{ margin: "1rem", fontSize: "1rem", fontWeight: "500" }}>
+            Hi, I’m Vivek, a UI/UX Designer and Frontend Developer with a
+            passion for crafting intuitive digital experiences and building
+            functional, user-centered web applications. I’m constantly honing my
+            skills in React, MERN stack, and modern design principles.
+          </h3>
+          <Skillist />
+        </div>
       </div>
     </div>
   );
 }
+
 function Avatar() {
   return (
     <div>
@@ -40,21 +54,25 @@ function Avatar() {
   );
 }
 
-function Skilllist() {
+function Skillist() {
   return (
     <div className="skill-list">
-      <Skill skill="HTML+CSS" colors="#4A90E2" />
-      <Skill skill="javaScript" colors="#E91172" />
-      <Skill skill="React" colors="#50C878" />
-      <Skill skill="Figma" colors="#FF6B6B" />
-      <Skill skill="Web Design" colors="#9B51E0" />
+      {skillsData.map((skill) => (
+        <Skill skills={skill.skill} color={skill.color} level={skill.level} />
+      ))}
     </div>
   );
 }
-function Skill(skills) {
+function Skill({ skills, color, level }) {
+  //using short circuting to display emoji based on level
   return (
-    <div className="skill" style={{ backgroundColor: skills.colors }}>
-      <span>{skills.skill}</span>
+    <div className="skill" style={{ backgroundColor: color }}>
+      <span>{skills}</span>
+      <span>
+        {level === "Beginner" && "🤓"}
+        {level === "Advanced" && "😎"}
+        {level === "Intermediate" && "🧐"}
+      </span>
     </div>
   );
 }
