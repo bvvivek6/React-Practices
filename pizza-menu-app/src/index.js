@@ -66,19 +66,19 @@ function Header() {
 }
 
 function Menu() {
-  const pizzas = pizzaData;
-  const numPizzas = pizzas.length;
+  const numPizzas = pizzaData.length;
   return (
     <main className="menu">
       <h2>Our menu</h2>
-      {numPizzas > 0 ? (
+      {/* React fragment */}
+      {numPizzas > 0 ? ( //conditional rendering or use ternary operator(preffered)
         <>
           <p>
             Authentic Italian cuisine. 6 creative dishes to choose from. All
             from our stone oven, all organic, all delicious.
           </p>
           <ul className="pizzas">
-            {pizzas.map((pizza) => (
+            {pizzaData.map((pizza) => (
               <Pizza pizzaObj={pizza} key={pizza.name} />
             ))}
           </ul>
@@ -89,22 +89,48 @@ function Menu() {
     </main>
   );
 }
+
 function Pizza({ pizzaObj }) {
+  // Destructuring the props
+  // if (pizzaObj.soldOut) {
+  //   return (
+  //     <div className="pizza sold-out">
+  //       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
+  //       <div>
+  //         <h3>{pizzaObj.name}</h3>
+  //         <p>{pizzaObj.ingredients}</p>
+  //         <span>SOLD OUT</span>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
   return (
-    <div className="pizza">
+    <div className={`pizza ${pizzaObj.soldOut ? "sold-out" : ""}`}>
       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <div>
         <h3>{pizzaObj.name}</h3>
         <p>{pizzaObj.ingredients}</p>
-        <span>{pizzaObj.price}</span>
+        <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
       </div>
     </div>
   );
 }
 
 function Footer() {
+  const time = new Date().getHours();
+  const openHr = 12;
+  const closeHr = 22;
+  const isOpen = time >= openHr && time <= closeHr;
+  //conditional rendering or use ternary operator(preffered)
   return (
-    <footer>{new Date().toLocaleTimeString()} , We are currently open!</footer>
+    <footer>
+      {isOpen ? (
+        <p style={{ fontSize: "2rem" }}>We are currently Open!!</p>
+      ) : (
+        <p style={{ fontSize: "2rem" }}>We are currently Closed!!</p>
+      )}
+    </footer>
   );
 }
 
