@@ -17,6 +17,8 @@ function TipCalculator() {
 
   function reset() {
     setBill("");
+    setPerc1(0);
+    setPerc2(0);
   }
 
   return (
@@ -59,7 +61,7 @@ function Selecpercentage({ children, percentage, onSelect }) {
         <option value="0">Dissatisfied 0%</option>
         <option value="5">It was Okay 5%</option>
         <option value="10">It was Good 10%</option>
-        <option value="20">It was Amazing 10%</option>
+        <option value="20">It was Amazing 20%</option>
       </select>
     </div>
   );
@@ -69,7 +71,7 @@ function Output({ billAmt, tip }) {
   return (
     <div>
       <h3 style={{ fontWeight: "800" }}>
-        You Pay ${billAmt + tip} (${billAmt} + ${tip})
+        You Pay ${Number(billAmt) + Number(tip)} (${billAmt} + ${tip})
       </h3>
     </div>
   );
@@ -77,7 +79,7 @@ function Output({ billAmt, tip }) {
 
 function Reset({ reset }) {
   return (
-    <di>
+    <div>
       <button
         onClick={reset}
         style={{
@@ -89,6 +91,6 @@ function Reset({ reset }) {
       >
         Reset
       </button>
-    </di>
+    </div>
   );
 }
