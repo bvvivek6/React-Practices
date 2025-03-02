@@ -1,8 +1,10 @@
 :root {
-  --color-lightest: #fff4e6;
-  --color-light: #ffdfb7;
-  --color-medium: #ffa94d;
-  --color-dark: #ff922b;
+  --color-lightest: #f7f9fc; /* Soft off-white */
+  --color-light: #dbeafe; /* Soft blue */
+  --color-medium: #3b82f6; /* Vibrant blue */
+  --color-dark: #2563eb; /* Deep blue */
+  --text-dark: #1e293b; /* Darker text for contrast */
+  --text-light: #475569; /* Lighter text */
 }
 
 * {
@@ -20,7 +22,7 @@ html {
 
 body {
   height: 100vh;
-  color: #495057;
+  color: var(--text-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,11 +34,13 @@ body {
   grid-template-columns: 34rem 44rem;
   column-gap: 4rem;
   align-items: start;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 .button {
   background-color: var(--color-medium);
-  color: #343a40;
+  color: #ffffff;
   padding: 0.8rem 1.2rem;
   border: none;
   border-radius: 7px;
@@ -63,7 +67,6 @@ body {
   grid-template-columns: 4.8rem 1fr auto;
   align-items: center;
   column-gap: 1.6rem;
-
   padding: 1.2rem;
   border-radius: 7px;
   transition: 0.5s;
@@ -71,7 +74,7 @@ body {
 
 .selected,
 .sidebar li:hover {
-  background-color: var(--color-lightest);
+  background-color: var(--color-light);
 }
 
 .sidebar li img {
@@ -113,9 +116,10 @@ form {
   display: grid;
   align-items: center;
   gap: 1.2rem;
-
   background-color: var(--color-lightest);
   border-radius: 7px;
+  border: 1px solid var(--color-light);
+  padding: 1.5rem;
 }
 
 .form-add-friend {
@@ -123,6 +127,7 @@ form {
   margin-bottom: 1.6rem;
   padding: 1.2rem;
 }
+
 .form-split-bill {
   grid-template-columns: 1fr 12rem;
   padding: 3.2rem 4rem;
@@ -167,4 +172,12 @@ form h2 {
   text-transform: uppercase;
   letter-spacing: -0.5px;
   margin-bottom: 1.6rem;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
