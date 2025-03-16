@@ -102,3 +102,10 @@ button {
   padding: 6px 12px;
   border-radius: 4px;
 }
+.tab-random button {
+  background-color: #364fc7;
+  color: #fff;
+  padding: 6px 12px;
+  margin: 5px 0px 0px 0px;
+  border-radius: 4px;
+}

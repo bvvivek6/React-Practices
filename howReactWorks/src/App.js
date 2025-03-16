@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const content = [
   {
@@ -29,23 +29,34 @@ export default function App() {
 function Tabbed({ content }) {
   const [activeTab, setActiveTab] = useState(0);
 
+  // Handle left and right arrow key navigation
+  useEffect(() => {
+    function handleKeyDown(e) {
+      if (e.key === "ArrowRight") {
+        setActiveTab((prev) => (prev + 1) % content.length);
+      } else if (e.key === "ArrowLeft") {
+        setActiveTab((prev) => (prev - 1 + content.length) % content.length);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [content.length]);
+
   return (
     <div>
       <div className="tabs">
-        <Tab num={0} activeTab={activeTab} onClick={setActiveTab} />
-        <Tab num={1} activeTab={activeTab} onClick={setActiveTab} />
-        <Tab num={2} activeTab={activeTab} onClick={setActiveTab} />
-        <Tab num={3} activeTab={activeTab} onClick={setActiveTab} />
+        {content.map((_, index) => (
+          <Tab
+            key={index}
+            num={index}
+            activeTab={activeTab}
+            onClick={setActiveTab}
+          />
+        ))}
       </div>
 
-      {activeTab <= 2 ? (
-        <TabContent
-          item={content.at(activeTab)}
-          key={content.at(activeTab).summary} //key is needed for re-rendering ans uniqueness
-        /> //content at the selected tab will be chosen "at"
-      ) : (
-        <DifferentContent />
-      )}
+      <TabContent item={content[activeTab]} />
     </div>
   );
 }
@@ -63,27 +74,37 @@ function Tab({ num, activeTab, onClick }) {
 
 function TabContent({ item }) {
   const [showDetails, setShowDetails] = useState(true);
-  const [likes, setLikes] = useState(0);
+  const [likes, setLikes] = useState(() => {
+    return JSON.parse(localStorage.getItem(item.summary)) || 0;
+  });
 
-  console.log("rendering");
+  useEffect(() => {
+    localStorage.setItem(item.summary, JSON.stringify(likes));
+  }, [likes, item.summary]);
 
   function handleInc() {
-    setLikes(likes + 1);
+    setLikes((prev) => prev + 1);
   }
+
   function handleUndo() {
     setLikes(0);
     setShowDetails(false);
-    console.log(likes);
   }
+
   function handleTrippleLikes() {
-    setLikes(likes + 3);
-    // setLikes(likes + 3);
-    // setLikes(likes + 3);
-    // setLikes(likes + 3);
-    //Even though we are setting the likes 4 times, it will only increment by 3 coz the setLikes is batched and synchronous
+    setLikes((prev) => prev + 3);
   }
+
   function handleUndoLater() {
     setTimeout(handleUndo, 2000);
+  }
+
+  async function fetchRandomFact() {
+    const response = await fetch(
+      "https://uselessfacts.jsph.pl/random.json?language=en"
+    );
+    const data = await response.json();
+    alert(`Random Fact: ${data.text}`);
   }
 
   return (
@@ -107,14 +128,12 @@ function TabContent({ item }) {
         <button onClick={handleUndo}>Undo</button>
         <button onClick={handleUndoLater}>Undo in 2s</button>
       </div>
-    </div>
-  );
-}
 
-function DifferentContent() {
-  return (
-    <div className="tab-content">
-      <h4>I'm a DIFFERENT tab, so I reset state 💣💥</h4>
+      <div className="tab-random">
+        <button className="button" onClick={fetchRandomFact}>
+          Get Random Fact
+        </button>
+      </div>
     </div>
   );
 }
