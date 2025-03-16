@@ -39,7 +39,10 @@ function Tabbed({ content }) {
       </div>
 
       {activeTab <= 2 ? (
-        <TabContent item={content.at(activeTab)} /> //content at the selected tab will be chosen "at"
+        <TabContent
+          item={content.at(activeTab)}
+          key={content.at(activeTab).summary} //key is needed for re-rendering ans uniqueness
+        /> //content at the selected tab will be chosen "at"
       ) : (
         <DifferentContent />
       )}
