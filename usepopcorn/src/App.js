@@ -9,29 +9,30 @@ export default function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const controller = new AbortController(); // Create an AbortController
     async function fetchMovies() {
       setLoading(true);
       setError(null); // Reset error before fetching
-
       try {
         const res = await fetch(
-          `http://www.omdbapi.com/?s=interstellar&apikey=${API_KEY}`
+          `http://www.omdbapi.com/?s=interstellar&apikey=${API_KEY}`,
+          { signal: controller.signal } // Attach signal to fetch
         );
-
-        if (!res.ok) throw new Error("Network response was not OK!");
+        if (!res.ok) throw new Error("Failed to fetch movies!");
         const data = await res.json();
-
-        if (data.Response === "False") throw new Error(data.Error); // Catch API errors
-
+        if (data.Response === "False") throw new Error(data.Error);
         setMovies(data.Search);
       } catch (err) {
-        setError(err.message);
+        if (err.name !== "AbortError") {
+          setError(err.message); // Update error state
+        }
       } finally {
         setLoading(false);
       }
     }
-
     fetchMovies();
+
+    return () => controller.abort();
   }, []);
 
   return (
