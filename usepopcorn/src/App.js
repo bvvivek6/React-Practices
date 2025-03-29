@@ -7,15 +7,18 @@ export default function App() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
+    if (!query) return;
     const controller = new AbortController(); // Create an AbortController
+
     async function fetchMovies() {
       setLoading(true);
       setError(null); // Reset error before fetching
       try {
         const res = await fetch(
-          `http://www.omdbapi.com/?s=interstellar&apikey=${API_KEY}`,
+          `http://www.omdbapi.com/?s=${query}&apikey=${API_KEY}`,
           { signal: controller.signal } // Attach signal to fetch
         );
         if (!res.ok) throw new Error("Failed to fetch movies!");
@@ -33,12 +36,12 @@ export default function App() {
     fetchMovies();
 
     return () => controller.abort();
-  }, []);
+  }, [query]);
 
   return (
     <>
       <NavBar>
-        <Search />
+        <Search query={query} setQuery={setQuery} />
         <NumResults movies={movies} />
       </NavBar>
       <Main>
@@ -96,8 +99,7 @@ function NumResults({ movies }) {
   );
 }
 
-function Search() {
-  const [query, setQuery] = useState("");
+function Search({ query, setQuery }) {
   return (
     <input
       className="search"
