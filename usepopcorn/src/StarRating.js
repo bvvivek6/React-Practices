@@ -114,8 +114,6 @@ function Star({ onRate, onHover, full, color, size }) {
   />
 </svg>
 
-
 EMPTY STAR
-
 
 */
